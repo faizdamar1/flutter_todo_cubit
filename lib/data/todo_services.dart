@@ -1,7 +1,13 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+
+void main() async {
+  final data = await TodoServices().fetchTodos();
+  inspect(data);
+}
 
 class TodoServices {
   final baseUrl = "http://192.168.0.8:3000";
