@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo_cubit/constants/string.dart';
+import 'package:flutter_todo_cubit/cubit/todo/add_todo_cubit.dart';
 import 'package:flutter_todo_cubit/cubit/todo/edit_todo_cubit.dart';
 import 'package:flutter_todo_cubit/cubit/todo/todo_cubit.dart';
 import 'package:flutter_todo_cubit/data/models/todo_model.dart';
@@ -11,12 +12,12 @@ import 'package:flutter_todo_cubit/presentation/screens/edit_todo_screen.dart';
 import 'package:flutter_todo_cubit/presentation/screens/todo_screen.dart';
 
 class AppRouter {
-  late TodoRepository todoRespository;
+  late TodoRepository todoRepository;
   late TodoCubit todoCubit;
 
   AppRouter() {
-    todoRespository = TodoRepository(todoServices: TodoServices());
-    todoCubit = TodoCubit(todoRepository: todoRespository);
+    todoRepository = TodoRepository(todoServices: TodoServices());
+    todoCubit = TodoCubit(todoRepository: todoRepository);
   }
 
   Route generateRoute(RouteSettings settings) {
@@ -34,7 +35,11 @@ class AppRouter {
       case addTodoRoute:
         return MaterialPageRoute(
           builder: (context) {
-            return const AddTodoScreen();
+            return BlocProvider(
+              create: (context) => AddTodoCubit(
+                  todoRepository: todoRepository, todoCubit: todoCubit),
+              child: AddTodoScreen(),
+            );
           },
         );
 
@@ -44,7 +49,7 @@ class AppRouter {
           builder: (context) {
             return BlocProvider(
               create: (context) => EditTodoCubit(
-                  todoRepository: todoRespository, todoCubit: todoCubit),
+                  todoRepository: todoRepository, todoCubit: todoCubit),
               child: EditTodoScreen(
                 todo: todo,
               ),
@@ -55,7 +60,7 @@ class AppRouter {
       default:
         return MaterialPageRoute(
           builder: (context) {
-            return const AddTodoScreen();
+            return AddTodoScreen();
           },
         );
     }

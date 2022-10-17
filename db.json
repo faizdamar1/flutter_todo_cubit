@@ -1,19 +1,9 @@
 {
   "todos": [
     {
-      "todo": "one todo editeded",
-      "isComplete": "true",
-      "id": 1
-    },
-    {
-      "todo": "two todo",
+      "todo": "add",
       "isComplete": "true",
       "id": 2
-    },
-    {
-      "todo": "three todo",
-      "isComplete": "false",
-      "id": 3
     }
   ]
 }

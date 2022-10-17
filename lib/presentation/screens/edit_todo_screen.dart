@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_todo_cubit/cubit/todo/edit_todo_cubit.dart';
 import 'package:flutter_todo_cubit/data/models/todo_model.dart';
-import 'package:toast/toast.dart';
 
 class EditTodoScreen extends StatelessWidget {
   final TodoModel todo;
@@ -19,8 +18,11 @@ class EditTodoScreen extends StatelessWidget {
         if (state is TodoEdited) {
           Navigator.pop(context);
         } else if (state is EditTodoError) {
-          Toast.show(state.error,
-              backgroundColor: Colors.red, duration: 3, gravity: Toast.center);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.error),
+            ),
+          );
         }
       },
       child: Scaffold(

@@ -30,6 +30,7 @@ class EditTodoCubit extends Cubit<EditTodoState> {
     todoRepository.deleteTodo(todo.id).then((isDeleted) {
       if (isDeleted) {
         todoCubit.deleteTodo(todo);
+
         emit(TodoEdited());
       }
     });
