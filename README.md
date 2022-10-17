@@ -5,4 +5,4 @@ Todo App using state management Bloc/Cubit
 ## Initial Server
 
 - https://www.npmjs.com/package/json-server
-- json-server --watch db.json
+- json-server --watch db.json -H ip_local
